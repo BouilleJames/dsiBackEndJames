@@ -51,6 +51,20 @@ app.post("/articles", (req, res) => {
   );
 });
 
+app.put("/articles/", (req, res) => {
+  const author = req.body.author;
+  const content = req.body.content;
+  console.log(content);
+  connection.query(
+    "UPDATE articles SET content = ? WHERE author = ?;",
+    [content, author],
+    (err, results) => {
+      if (err) throw err;
+      res.json(results);
+    }
+  );
+});
+
 app.patch("/articles/", (req, res) => {
   const author = req.body.author;
   const content = req.body.content;
@@ -78,5 +92,5 @@ app.delete("/articles/:id", (req, res) => {
 });
 
 app.listen(3004, () => {
-  console.log("running on port 3004");
+  console.log("🎉Server is running on port 3004");
 });
